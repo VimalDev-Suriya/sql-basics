@@ -1,0 +1,14 @@
+CREATE DATABASE company_dev;
+
+CREATE TABLE departments(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE employees(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	salary INT NOT NULL,
+	department_id INT REFERENCES departments(id),
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
