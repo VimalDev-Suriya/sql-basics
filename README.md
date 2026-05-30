@@ -39,14 +39,14 @@ As the part of my learning, I am going to use Postgres SQL. So installing the fo
 
 ## Queries:
 
-SQL is case insenitive, we can use both upper and lower case for writing the query. Make sure the keys, tables are case sensitive.
+SQL is `case insenitive`, we can use both upper and lower case for writing the query. Make sure the keys, tables, columns and rows are case sensitive.
 
 ### Data Types:
 
 1. Interger -
    1. SMALLINT - Smaller integer
    2. INT,
-   3. BIGINT - Larger integer than > 2billion
+   3. BIGINT - Larger integer than > 2 billion
 2. Decimal -
    1. Numeric(num, decimal),
    2. Real/Double Precission
@@ -69,10 +69,7 @@ SQL is case insenitive, we can use both upper and lower case for writing the que
 
 - Always prefer smaller case while creating the DB name, like users, comments etc
 - If we want multiple name combined, use "\_", like user_details
-- Always give the environment name was the suffix while creating the DB like `users_dev`
-- Use `id` as the suffix or in its name while creating the Primary Key
-- Use `<table_name>_id` for the Foreign key creation
-- If we want to have the timestamps /date always use `_at` suffix
+- Always give the environment name as the suffix while creating the DB like `users_dev`
 
 ```sql
 CREATE DATABASE <dbname>
@@ -99,6 +96,9 @@ DROP DATABASE <dbname> WITH (FORCE)
 - Always use `plural` form while creating the table
 - user snake case eg `users_details` while creating table.
 - Always use `_` while for multple name and also joins
+- Use `id` as the suffix or in its name while creating the Primary Key (PK)
+- Use `<table_name>_id` for the Foreign key creation (FK)
+- If we want to have the timestamps /date always use `_at` suffix
 
 ```sql
 CREATE TABLE students(
@@ -106,10 +106,10 @@ CREATE TABLE students(
 	fullname VARCHAR(70) NOT NULL, -- NOT NULL explicitly stating that this is mandatory value
 	fathers_name VARCHAR(70) NOT NULL,
 	age SMALLINT NOT NULL,
-	email VARCHAR(100) UNIQUE, -- UNIQUE REPRESENTS THAT THIS VALUE SHOULD BE UNIQUE WITHIN THE TABLE, BUT NOT THE PRIMARY KEY
+	email VARCHAR(100) UNIQUE, -- UNIQUE REPRESENTS THAT THIS VALUE SHOULD BE UNIQUE WITHIN THE TABLE, BUT THIS IS NOT THE PRIMARY KEY
 	enroll_date DATE DEFAULT CURRENT_DATE -- CURRENT DATE IS THE TODAY'S DATE - ITS THE KEYWORD
-    marks INT CHECK(marks BETWEEN 0 AND 100)
-    created_at TIMESTAMP DEFAULT DEFAULT_TIMESTAMP
+   marks INT CHECK(marks BETWEEN 0 AND 100)
+   created_at TIMESTAMP DEFAULT DEFAULT_TIMESTAMP
 )
 ```
 
@@ -119,7 +119,7 @@ CREATE TABLE students(
 2. Normalize your tables, avoid reduntant values
 3. Use `Foreign Key` to refer the external tables
 4. Avoid using larger `data types` for the smaller values, like use smallint for age
-5. Add `NOT NULL` where every possible, to increase te data integrity
+5. Add `NOT NULL` wherever possible, to increase the data integrity
 
 #### Null values in SQL queries:
 
@@ -161,7 +161,7 @@ INSERT INTO <table_name>(<columns comma separated>) VALUES
 
 - Always use single quotes to give the string values
 - Passing the Column names `<table_name>(<columns comma separated>)` is optional, but it is highly recommended to to that.
-  - It helps to give the corresponding values
+  - It helps to point out the values to corresponding columns.
 
 ### Update the Data:
 
@@ -194,7 +194,7 @@ WHERE mark < 66
 
 - `Safe Delete` is important, as there is the possibility of deleting the important data without awarness
 - Always use `primary key` selector for picking up the correspodning row to be deleted. If there was the requirment to delete with multiple condition then make to re-validate if that operation is valid to perform
-- Always check whether the element that we are planned o delete is actually present in table.
+- **Always check whether the element that we are planned to delete is actually present in table.**
 - By default DELETE does not support `limit` operation, so we can use `sub-queries` to perform those actions. like below
 
 ```sql
@@ -215,7 +215,7 @@ WHERE id IN (
 
 A Important query which helps to retrive the data.
 
-- PostgresSql converts the SELECT query as the `execution plan`, and then executes them in effiecint way.
+- PostgresSql converts the SELECT query as the `execution plan`, and then executes them in efficient way.
 - Here `*` represents `every column` in the given table
 
 ```sql
@@ -237,12 +237,13 @@ SELECT <column_name> FROM <table_name>
 #### Execution Order of Select Query
 
 1. FROM
-2. WHERE
-3. GROUP BY
-4. HAVING
-5. SELECT
-6. ORDER BY
-7. LIMIT
+2. JOINS (CONDITION)
+3. WHERE
+4. GROUP BY
+5. HAVING
+6. SELECT
+7. ORDER BY
+8. LIMIT
 
 ### Filtering the data:
 
@@ -270,7 +271,7 @@ SELECT * FROM <table_name>
 ORDER BY id
 
 SELECT * FROM <table_name>
-ORDER BY ASC condition_1 AND DESC condition_2
+ORDER BY condition_1 ASC AND condition_2 DESC
 
 -- Here we are selecting only 3 itesm and Ordering them based on the column_2
 SELECT column_1, column_2, column_3 FROM <table_name>
@@ -325,10 +326,11 @@ A Most important key for any Table in SQL. This will give the uniqueness to each
 
 - Primay keys are created during a time table creation
 - We can select the primary key, if the existing table does not have it
-- we can only create one Pimary key
+- we can only create one Pimary key.
 - We can create primary key by combining multiple keys.
 
 ```sql
+-- If there is no primary key while creating the DB
 ALTER TABLE <table_name>
 ADD PRIMARY KEY (<column_name>)
 
