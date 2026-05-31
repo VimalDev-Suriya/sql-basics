@@ -19,8 +19,9 @@ SQL queries will be executed in an order
 4. GROUP BY
 5. HAVING
 6. SELECT
-7. ORDER BY
-8. LIMIT
+7. ROW_NUMBER()
+8. ORDER BY
+9. LIMIT
 
 ## Self Joins:
 

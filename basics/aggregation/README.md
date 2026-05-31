@@ -1,6 +1,7 @@
 # Aggregations
 
 - All Aggregate functions will ignore the `NULL` values
+- **DO not use any AGGREGATE FUNCTION with WHERE CLAUSE**
 
 ## Methods
 

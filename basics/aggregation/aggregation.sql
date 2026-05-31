@@ -37,6 +37,8 @@ SELECT MAX(maths) FROM quarterly_assement
 -- Always accept only one Column Name
 SELECT MIN(maths) FROM quarterly_assement
 
+-- All of the above Queries return the single conslidated result
+
 SELECT name, maths, science, social_science, maths + science + social_science as total FROM quarterly_assement
 
 -- Aggrecate Functions should always be used in conjuction with GROUP BY clause and vice versa
